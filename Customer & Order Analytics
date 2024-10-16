@@ -30,8 +30,7 @@ SELECT Product, MIN(price)
 FROM BIT_DB.JanSales
 WHERE length(orderid) = 6
 AND orderid <> 'Order ID'
-ORDER BY Product
-;
+ORDER BY Product;
 
 
 -- What is the total revenue for each product sold in January?
@@ -39,16 +38,14 @@ SELECT product, SUM(Quantity)*price as Revenue
 FROM BIT_DB.JanSales
 WHERE length(orderid) = 6
 AND orderid <> 'Order ID'
-GROUP BY Product
-;
+GROUP BY Product;
 
 
 -- Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
 SELECT Product, SUM(Quantity), price, SUM(Quantity)*price as total_revenue, location
 FROM BIT_DB.FebSales
 WHERE location = '548 Lincoln St, Seattle, WA 98101'
-GROUP BY Product
-;
+GROUP BY Product;
 
 
 -- How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?
@@ -59,5 +56,10 @@ ON cust.order_id = feb.orderID
 WHERE length(orderid) = 6
 AND orderid <> 'Order ID'
 AND Feb.Quantity > 1;
-;
 
+
+-- List all the products sold in Los Angeles in February, and include how many of each were sold.
+SELECT Product, SUM(Quantity)
+FROM BIT_DB.Febsales
+WHERE location like '%Los Angeles%'
+GROUP BY Product;
